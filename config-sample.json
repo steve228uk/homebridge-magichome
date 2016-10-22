@@ -1,0 +1,18 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "DC:39:3D:F3:CE:31",
+        "port": 51827,
+        "pin": "031-57-155"
+    },
+
+    "description": "An example Homebridge config for MagicHome.",
+
+    "accessories": [
+       {
+           "accessory": "MagicHome",
+           "name": "LED Strip",
+           "ip" : "192.168.1.111"
+       }
+    ]
+}

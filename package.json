@@ -1,0 +1,24 @@
+{
+  "name": "homebridge-magichome",
+  "version": "0.1.0",
+  "description": "Magic Home WiFi plugin for homebridge",
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.3.0"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "Flux",
+    "magic",
+    "home",
+    "wifi"
+  ],
+  "dependencies": {
+    "color-convert": "^1.5.0"
+  }
+}
