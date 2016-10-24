@@ -40,6 +40,6 @@ Any devices created by Zengge and running on the Magic Home Wi-Fi (or other apps
 - [Waterproof RGB LED Strips WIFI Controller](http://amzn.to/2eoDQZx)
 - [Eastlion RGB Wi-Fi Strip Controller](http://amzn.to/2eCF8wV)
 
-==I have only tested this myself with the first item on the list== which as far as I know is also the only product to require the `extrawhite` option. I will however be buying some of the bulbs to try soon.
+**I have only tested this myself with the first item on the list** which as far as I know is also the only product to require the `extrawhite` option. I will however be buying some of the bulbs to try soon.
 
 Please let me know if you find any other compatible devices.
