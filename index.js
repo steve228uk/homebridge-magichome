@@ -78,7 +78,7 @@ MagicHomeAccessory.prototype.sendCommand = function(command, callback) {
 MagicHomeAccessory.prototype.getState = function (callback) {
 	this.sendCommand('-i', function(error, stdout) {
 		var settings = {
-			on: true,
+			on: false,
 			color: {H: 255, S: 100, L: 50}
 		};
 
