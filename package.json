@@ -16,7 +16,12 @@
     "Flux",
     "magic",
     "home",
-    "wifi"
+    "wifi",
+    "zengge",
+    "led",
+    "strips",
+    "lighbulb",
+    "blub"
   ],
   "dependencies": {
     "color-convert": "^1.5.0"
