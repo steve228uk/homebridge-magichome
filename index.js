@@ -18,6 +18,7 @@ function MagicHomeAccessory(log, config, api) {
 	this.log = log;
 	this.config = config;
 	this.name = config.name || 'LED Controller';
+    this.extrawhite = config.extrawhite || false;
 	this.port = config.port || 5577;
 	this.ip = config.ip;
 	this.color = {H: 255, S:100, L:50};
@@ -110,10 +111,8 @@ MagicHomeAccessory.prototype.setToCurrentColor = function() {
 	var color = this.color;
 	var brightness = this.brightness;
 	var converted = convert.hsl.rgb([color.H, color.S, color.L]);
-
-	console.log('-c ' + Math.round((converted[0] / 100) * brightness) + ',' + Math.round((converted[1] / 100) * brightness) + ',' + Math.round((converted[2] / 100) * brightness));
-
-	this.sendCommand('-c ' + Math.round((converted[0] / 100) * brightness) + ',' + Math.round((converted[1] / 100) * brightness) + ',' + Math.round((converted[2] / 100) * brightness));
+    var base = this.extrawhite ? '-x -c ' : '-c '
+	this.sendCommand(base + Math.round((converted[0] / 100) * brightness) + ',' + Math.round((converted[1] / 100) * brightness) + ',' + Math.round((converted[2] / 100) * brightness));
 };
 
 // MARK: - POWERSTATE

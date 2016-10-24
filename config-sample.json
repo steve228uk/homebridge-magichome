@@ -12,7 +12,8 @@
        {
            "accessory": "MagicHome",
            "name": "LED Strip",
-           "ip" : "192.168.1.111"
+           "ip": "192.168.1.111",
+           "extrawhite": false
        }
     ]
 }

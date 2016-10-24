@@ -167,25 +167,25 @@ class utils:
 
 class PresetPattern:
 	seven_color_cross_fade =   0x25
-	red_gradual_change =       0x26
-	green_gradual_change =     0x27
-	blue_gradual_change =      0x28
-	yellow_gradual_change =    0x29
-	cyan_gradual_change =      0x2a
-	purple_gradual_change =    0x2b
-	white_gradual_change =     0x2c
-	red_green_cross_fade =     0x2d
-	red_blue_cross_fade =      0x2e
-	green_blue_cross_fade =    0x2f
+	red_gradual_change =	   0x26
+	green_gradual_change =	 0x27
+	blue_gradual_change =	  0x28
+	yellow_gradual_change =	0x29
+	cyan_gradual_change =	  0x2a
+	purple_gradual_change =	0x2b
+	white_gradual_change =	 0x2c
+	red_green_cross_fade =	 0x2d
+	red_blue_cross_fade =	  0x2e
+	green_blue_cross_fade =	0x2f
 	seven_color_strobe_flash = 0x30
-	red_strobe_flash =         0x31
-	green_strobe_flash =       0x32
-	blue_stobe_flash =         0x33
-	yellow_strobe_flash =      0x34
-	cyan_strobe_flash =        0x35
-	purple_strobe_flash =      0x36
-	white_strobe_flash =       0x37
-	seven_color_jumping =      0x38
+	red_strobe_flash =		 0x31
+	green_strobe_flash =	   0x32
+	blue_stobe_flash =		 0x33
+	yellow_strobe_flash =	  0x34
+	cyan_strobe_flash =		0x35
+	purple_strobe_flash =	  0x36
+	white_strobe_flash =	   0x37
+	seven_color_jumping =	  0x38
 
 	@staticmethod
 	def valid(pattern):
@@ -572,7 +572,7 @@ class WifiLedBulb():
 		msg.append(0x0f)
 		self.__write(msg)
 
-	def setRgb(self, r,g,b, persist=True):
+	def setRgb(self, r,g,b, persist=True, extrawhite=False):
 		if persist:
 			msg = bytearray([0x31])
 		else:
@@ -581,7 +581,8 @@ class WifiLedBulb():
 		msg.append(g)
 		msg.append(b)
 		msg.append(0x00)
-		msg.append(0x00)
+		if extrawhite:
+			msg.append(0x00)
 		msg.append(0xf0)
 		msg.append(0x0f)
 		self.__write(msg)
@@ -838,9 +839,9 @@ There are 6 timers available for each bulb.
 Mode Details:
 	inactive:   timer is inactive and unused
 	poweroff:   turns off the light
-	default:    turns on the light in default mode
-	color:      turns on the light with specified color
-	preset:     turns on the light with specified preset and speed
+	default:	turns on the light in default mode
+	color:	  turns on the light with specified color
+	preset:	 turns on the light with specified preset and speed
 	warmwhite:  turns on the light with warm white at specified brightness
 
 Settings available for each mode:
@@ -848,9 +849,9 @@ Settings available for each mode:
 	--------------------------------------------
 	inactive:   [none]
 	poweroff:   time, (repeat | date)
-	default:    time, (repeat | date)
-	color:      time, (repeat | date), color
-	preset:     time, (repeat | date), code, speed
+	default:	time, (repeat | date)
+	color:	  time, (repeat | date), color
+	preset:	 time, (repeat | date), code, speed
 	warmwhite:  time, (repeat | date), level
 
 Setting Details:
@@ -866,9 +867,9 @@ Setting Details:
 			0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
 		e.g:
 		"0123456"  - everyday
-		"06"       - weekends
-		"12345"    - weekdays
-		"2"        - only Tuesday
+		"06"	   - weekends
+		"12345"	- weekdays
+		"2"		- only Tuesday
 
 	date: Date that the one-time timer should fire
 			(Mutually exclusive with repeat)
@@ -1124,6 +1125,9 @@ def parseArgs():
 	other_group.add_option("-v", "--volatile",
 					  action="store_true", dest="volatile", default=False,
 					  help="Don't persist mode setting with hard power cycle (RGB and WW modes only).")
+	other_group.add_option("-x", "--extrawhite",
+		action="store_true", dest="extrawhite", default=False,
+		help="Add an extra white bit to support RGBWW controllers.")
 	parser.add_option_group(other_group)
 
 	parser.usage = "usage: %prog [-sS10cwpCiltThe] [addr1 [addr2 [addr3] ...]."
@@ -1160,7 +1164,7 @@ def parseArgs():
 
 	mode_count = 0
 	if options.color:  mode_count += 1
-	if options.ww:     mode_count += 1
+	if options.ww:	 mode_count += 1
 	if options.preset: mode_count += 1
 	if options.custom: mode_count += 1
 	if mode_count > 1:
@@ -1260,7 +1264,7 @@ def main():
 				print
 			else:
 				print "[{}]".format(name)
-			bulb.setRgb(options.color[0],options.color[1],options.color[2], not options.volatile)
+			bulb.setRgb(options.color[0],options.color[1],options.color[2], not options.volatile, options.extrawhite)
 
 		elif options.custom is not None:
 			bulb.setCustomPattern(options.custom[2], options.custom[1], options.custom[0])
