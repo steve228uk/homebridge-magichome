@@ -11,7 +11,7 @@
   "homepage": "https://github.com/steve228uk/homebridge-magichome#readme",
   "repository": {
     "type": "git",
-    "url": "git://github.com/devbobo/homebridge-magichome.git"
+    "url": "git://github.com/steve228uk/homebridge-magichome.git"
   },
   "bugs": {
     "url": "http://github.com/steve228uk/homebridge-magichome/issues"
