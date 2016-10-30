@@ -18,7 +18,7 @@ function MagicHomeAccessory(log, config, api) {
 	this.log = log;
 	this.config = config;
 	this.name = config.name || 'LED Controller';
-    this.layout = config.layout || 'RGBW';
+    this.setup = config.setup || 'RGBW';
 	this.port = config.port || 5577;
 	this.ip = config.ip;
 	this.color = {H: 255, S:100, L:50};
