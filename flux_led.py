@@ -572,7 +572,7 @@ class WifiLedBulb():
 		msg.append(0x0f)
 		self.__write(msg)
 
-	def setRgb(self, r,g,b, persist=True, extrawhite=False):
+	def setRgb(self, r,g,b, persist=True, setup="RGBW"):
 		if persist:
 			msg = bytearray([0x31])
 		else:
@@ -580,10 +580,13 @@ class WifiLedBulb():
 		msg.append(r)
 		msg.append(g)
 		msg.append(b)
-		msg.append(0x00)
-		if extrawhite:
+		if setup == "RGBW":
 			msg.append(0x00)
-		msg.append(0xf0)
+			msg.append(0xf0)
+		if setup == "RGBWW":
+			msg.append(0x00)
+			msg.append(0x00)
+			msg.append(0xf0)
 		msg.append(0x0f)
 		self.__write(msg)
 
@@ -1088,6 +1091,9 @@ def parseArgs():
 	mode_group.add_option("-c", "--color", dest="color", default=None,
 				  help="Set single color mode.  Can be either color name, web hex, or comma-separated RGB triple",
 				  metavar='COLOR')
+	mode_group.add_option("-x", "--setup", dest="setup", default="RGBW",
+				  help="The setup of the lights: RGB, RGBW or RGBWW",
+				  metavar='SETUP')
 	mode_group.add_option("-w", "--warmwhite", dest="ww", default=None,
 				  help="Set warm white mode (LEVEL is percent)",
 				  metavar='LEVEL', type="int")
@@ -1125,9 +1131,6 @@ def parseArgs():
 	other_group.add_option("-v", "--volatile",
 					  action="store_true", dest="volatile", default=False,
 					  help="Don't persist mode setting with hard power cycle (RGB and WW modes only).")
-	other_group.add_option("-x", "--extrawhite",
-		action="store_true", dest="extrawhite", default=False,
-		help="Add an extra white bit to support RGBWW controllers.")
 	parser.add_option_group(other_group)
 
 	parser.usage = "usage: %prog [-sS10cwpCiltThe] [addr1 [addr2 [addr3] ...]."
@@ -1264,7 +1267,7 @@ def main():
 				print
 			else:
 				print "[{}]".format(name)
-			bulb.setRgb(options.color[0],options.color[1],options.color[2], not options.volatile, options.extrawhite)
+			bulb.setRgb(options.color[0],options.color[1],options.color[2], not options.volatile, options.setup)
 
 		elif options.custom is not None:
 			bulb.setCustomPattern(options.custom[2], options.custom[1], options.custom[0])
