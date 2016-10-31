@@ -109,11 +109,22 @@ MagicHomeAccessory.prototype.getColorFromDevice = function() {
 
 MagicHomeAccessory.prototype.setToCurrentColor = function() {
 	var color = this.color;
+
+    if(color.S == 0 && color.H == 0 && this.setup == 'RGBW') {
+        this.setToWarmWhite();
+        return
+    }
+
 	var brightness = this.brightness;
 	var converted = convert.hsl.rgb([color.H, color.S, color.L]);
 
     var base = '-x ' + this.setup + ' -c';
 	this.sendCommand(base + Math.round((converted[0] / 100) * brightness) + ',' + Math.round((converted[1] / 100) * brightness) + ',' + Math.round((converted[2] / 100) * brightness));
+};
+
+MagicHomeAccessory.prototype.setToWarmWhite = function() {
+    var brightness = this.brightness;
+    this.sendCommand('-w ' + brightness);
 };
 
 // MARK: - POWERSTATE
