@@ -23,6 +23,7 @@ function MagicHomeAccessory(log, config, api) {
 	this.ip = config.ip;
 	this.color = {H: 255, S:100, L:50};
 	this.brightness = 100;
+    this.purewhite = config.purewhite || false;
 
 	this.getColorFromDevice();
 
@@ -110,7 +111,7 @@ MagicHomeAccessory.prototype.getColorFromDevice = function() {
 MagicHomeAccessory.prototype.setToCurrentColor = function() {
 	var color = this.color;
 
-    if(color.S == 0 && color.H == 0 && this.setup == 'RGBW') {
+    if(color.S == 0 && color.H == 0 && this.purewhite) {
         this.setToWarmWhite();
         return
     }
