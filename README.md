@@ -20,12 +20,15 @@ Next, add a new accessory to your Homebridge `config.json`. You can add as many 
        "accessory": "MagicHome",
        "name": "LED Strip",
        "ip": "192.168.1.111",
-       "setup": "RGBWW"
+       "setup": "RGBWW",
+       "purewhite": false
    }
 ]
 ````
 
 The `setup` option is `RGBW` by default which is likely the setting you'll want. Some devices require `RGBWW` or `RGB` to work correctly.
+
+The `purewhite` option should be included for lights with a dedicated white LED. This is likely only the case for bulbs and is therefore set to false by default.
 
 ## Compatible Devices
 
